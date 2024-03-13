@@ -3,26 +3,26 @@ package com.example.additionservice;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class AdditionController {
+public class CalculatorController {
 
     @GetMapping("/add")
     public String addNumbers(@RequestParam(value = "a") int a, @RequestParam(value = "b") int b) {
         int sum = a + b;
-        return "The sum of " + a + " and " + b + " is " + sum;
+        return String.format("The sum of %d and %d is %d", a, b, sum);
     }
 
     @PostMapping("/subtract")
     public String subtractNumbers(@RequestBody NumbersRequest numbersRequest) {
         int result = numbersRequest.getFirstNumber() - numbersRequest.getSecondNumber();
-        return "The result of subtracting " + numbersRequest.getSecondNumber() + " from " +
-                numbersRequest.getFirstNumber() + " is " + result;
+        return String.format("The result of subtracting %d from %d is %d",
+                numbersRequest.getSecondNumber(), numbersRequest.getFirstNumber(), result);
     }
 
     @PostMapping("/multiply")
     public String multiplyNumbers(@RequestBody NumbersRequest numbersRequest) {
         int result = numbersRequest.getFirstNumber() * numbersRequest.getSecondNumber();
-        return "The result of multiplying " + numbersRequest.getFirstNumber() + " and " +
-                numbersRequest.getSecondNumber() + " is " + result;
+        return String.format("The result of multiplying %d and %d is %d",
+                numbersRequest.getFirstNumber(), numbersRequest.getSecondNumber(), result);
     }
 
     @PostMapping("/divide")
@@ -31,13 +31,13 @@ public class AdditionController {
             return "Error: Division by zero is not allowed";
         }
         double result = (double) numbersRequest.getFirstNumber() / numbersRequest.getSecondNumber();
-        return "The result of dividing " + numbersRequest.getFirstNumber() + " by " +
-                numbersRequest.getSecondNumber() + " is " + result;
+        return String.format("The result of dividing %d by %d is %f",
+                numbersRequest.getFirstNumber(), numbersRequest.getSecondNumber(), result);
     }
     @PutMapping("/updateFirstNumber/{value}")
     public String updateFirstNumber(@PathVariable int value) {
-         firstNumber.setfirstNumber(value);
-        return "Number first updated to " + value;
+         FirstNumber.setFirstNumber(value);
+         return String.format("Number first updated to %d", value);
     }
 
 
